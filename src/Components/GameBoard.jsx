@@ -1,22 +1,14 @@
-import { useState } from "react";
+export default function GameBoard({ onSelectPlayer, gameBoard }) {
+  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-export default function GameBoard({ onSelectPlayer, activePlayerSymbol }) {
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
-  function handleGameBoard(rowIndex, colIndex) {
-    setGameBoard((prevGameBoard) => {
-      const updatedGameBoard = [...prevGameBoard.map((arr) => [...arr])];
-      updatedGameBoard[rowIndex][colIndex] = activePlayerSymbol;
-      return updatedGameBoard;
-    });
-    onSelectPlayer();
-  }
+  // function handleGameBoard(rowIndex, colIndex) {
+  //   setGameBoard((prevGameBoard) => {
+  //     const updatedGameBoard = [...prevGameBoard.map((arr) => [...arr])];
+  //     updatedGameBoard[rowIndex][colIndex] = activePlayerSymbol;
+  //     return updatedGameBoard;
+  //   });
+  //   onSelectPlayer(rowIndex, colIndex);
+  // }
 
   return (
     <ol id="game-board">
@@ -25,7 +17,10 @@ export default function GameBoard({ onSelectPlayer, activePlayerSymbol }) {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleGameBoard(rowIndex, colIndex)}>
+                <button
+                  onClick={() => onSelectPlayer(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
                   {playerSymbol}
                 </button>
               </li>
